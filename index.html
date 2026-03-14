@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Victor Fagundes – QA Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blush:     #EDE3E4;
+      --lavmist:   #E7DFE8;
+      --lavsoft:   #E4DEE4;
+      --lilacash:  #AF9FA5;
+      --granite:   #92898A;
+      --dark:      #2C2426;
+      --ink:       #3E3335;
+      --mid:       #6B5F61;
+      --white:     #FDFBFC;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(253,251,252,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(175,159,165,0.15);
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.1rem; color: var(--dark); text-decoration: none; letter-spacing: 0.01em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; font-weight: 400; color: var(--mid); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta { font-size: 0.8rem; font-weight: 500; color: var(--dark); border: 1.5px solid var(--lilacash); padding: 0.45rem 1.1rem; border-radius: 100px; text-decoration: none; letter-spacing: 0.05em; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--dark); color: var(--white); border-color: var(--dark); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;      /* centraliza horizontalmente */
+      text-align: center;       /* centraliza o texto */
+      padding: 10rem 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, #E7DFE8 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, #EDE3E4 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, #E4DEE4 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .hero-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--lavmist), var(--lilacash));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.4rem; color: var(--white);
+      margin-bottom: 1.25rem; overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--granite); margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.05; color: var(--dark); margin-bottom: 1.5rem;
+    }
+    .hero-name em { font-style: italic; color: var(--granite); display: block; }
+
+    .hero-desc {
+      font-size: 1rem; font-weight: 300; line-height: 1.75;
+      color: var(--mid); max-width: 480px; margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 5rem;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.875rem; font-weight: 500; background: var(--dark); color: var(--white);
+      padding: 0.75rem 1.75rem; border-radius: 100px; text-decoration: none;
+      letter-spacing: 0.03em; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.875rem; font-weight: 400; color: var(--mid);
+      padding: 0.75rem 1.75rem; border-radius: 100px;
+      border: 1.5px solid var(--lavsoft); text-decoration: none;
+      letter-spacing: 0.03em; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--lilacash); color: var(--dark); }
+
+    /* ── CARROSSEL ── */
+    .carousel-wrapper {
+      position: relative; z-index: 1;
+      width: 100vw; padding: 2rem 0 3.5rem;
+      border-top: 1px solid rgba(175,159,165,0.18);
+    }
+    .carousel-label {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--lilacash); text-align: center; margin-bottom: 1.5rem;
+    }
+    .carousel-track-outer {
+      overflow: hidden;
+      -webkit-mask: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+      mask: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+    .carousel-track {
+      display: flex; gap: 4rem; align-items: center;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .carousel-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .carousel-logo {
+      height: 36px; width: auto;
+      object-fit: contain;
+      opacity: 0.55;
+      filter: grayscale(100%);
+      transition: opacity 0.3s, filter 0.3s;
+      user-select: none;
+    }
+    .carousel-logo:hover { opacity: 1; filter: grayscale(0%); }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 3rem; }
+
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--lilacash); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;
+    }
+    .section-label::before { content: ''; display: inline-block; width: 20px; height: 1.5px; background: var(--lilacash); }
+
+    .section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); line-height: 1.15; margin-bottom: 3rem; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--blush); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; max-width: 1000px; }
+    .about-text p { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--mid); margin-bottom: 1.25rem; }
+    .about-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .pill { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; color: var(--dark); background: rgba(255,255,255,0.7); border: 1px solid rgba(175,159,165,0.3); padding: 0.4rem 0.9rem; border-radius: 100px; }
+
+    .skill-group { margin-bottom: 2rem; }
+    .skill-group-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--granite); margin-bottom: 0.75rem; }
+    .skill-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .skill-item { display: flex; align-items: center; justify-content: space-between; font-size: 0.875rem; color: var(--ink); }
+    .skill-bar-track { width: 120px; height: 3px; background: rgba(175,159,165,0.25); border-radius: 10px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; background: var(--granite); border-radius: 10px; transform-origin: left; animation: barIn 1s ease forwards; animation-delay: var(--delay, 0s); transform: scaleX(0); }
+    @keyframes barIn { to { transform: scaleX(1); } }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--white); }
+    .exp-card { max-width: 680px; border-left: 2px solid var(--lavsoft); padding-left: 2rem; position: relative; }
+    .exp-card::before { content: ''; position: absolute; left: -5px; top: 0.3rem; width: 8px; height: 8px; background: var(--lilacash); border-radius: 50%; }
+    .exp-meta { font-size: 0.78rem; letter-spacing: 0.06em; color: var(--granite); margin-bottom: 0.5rem; }
+    .exp-role { font-family: var(--font-display); font-size: 1.4rem; color: var(--dark); margin-bottom: 0.25rem; }
+    .exp-company { font-size: 0.9rem; font-weight: 500; color: var(--mid); margin-bottom: 1.25rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .exp-bullets li { font-size: 0.9rem; font-weight: 300; line-height: 1.65; color: var(--mid); padding-left: 1rem; position: relative; }
+    .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--lilacash); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--lavmist); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card { background: rgba(255,255,255,0.6); border: 1px solid rgba(175,159,165,0.2); border-radius: 16px; padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--lilacash), var(--lavsoft)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(44,36,38,0.08); }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-placeholder { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, var(--blush) 0%, var(--lavsoft) 100%); border-radius: 8px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; }
+    .project-placeholder-icon { font-size: 2rem; opacity: 0.35; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .project-tag { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--granite); background: rgba(175,159,165,0.12); padding: 0.2rem 0.6rem; border-radius: 100px; }
+    .project-title { font-family: var(--font-display); font-size: 1.15rem; color: var(--dark); margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.85rem; font-weight: 300; line-height: 1.65; color: var(--mid); }
+    .project-coming { margin-top: 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lilacash); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--dark); text-align: center; }
+    #contact .section-label { justify-content: center; color: var(--lilacash); }
+    #contact .section-label::before { background: var(--lilacash); }
+    #contact .section-title { color: var(--white); margin-bottom: 1rem; }
+    .contact-sub { font-size: 1rem; font-weight: 300; color: var(--lilacash); margin-bottom: 3rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; font-weight: 400; color: var(--lavmist); text-decoration: none; padding: 0.75rem 1.5rem; border: 1px solid rgba(175,159,165,0.25); border-radius: 100px; letter-spacing: 0.04em; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+    .contact-link:hover { border-color: var(--lilacash); color: var(--white); background: rgba(175,159,165,0.1); }
+    .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); border-top: 1px solid rgba(175,159,165,0.1); padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.78rem; color: var(--granite); letter-spacing: 0.04em; }
+    footer a { color: var(--lilacash); text-decoration: none; }
+
+    /* ── FADE IN ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #home { padding: 8rem 1.5rem 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#home">Victor Fagundes</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="/cdn-cgi/l/email-protection#7e1c0a185008171d0a110c0d184e4c4e483e19131f1712501d1113">Get in touch ↗</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <!-- Avatar: substitua "VF" por <img src="sua-foto.jpg" alt="Victor"> quando tiver a foto -->
+      <div class="hero-avatar">VF</div>
+
+      <span class="hero-tag">Victor Fagundes</span>
+
+      <h1 class="hero-name">QA Analyst</h1>
+
+      <p class="hero-desc">
+        Quality Assurance professional with 2+ years of experience ensuring software reliability through structured testing, automation and process improvement.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn-primary" href="#experience">See my work</a>
+        <a class="btn-secondary" href="https://linkedin.com/in/victor-souza-fagundes-f15/" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <!-- CARROSSEL -->
+    <div class="carousel-wrapper">
+      <p class="carousel-label">Companies I helped</p>
+      <div class="carousel-track-outer">
+        <div class="carousel-track">
+          <img class="carousel-logo" src="logos/mosten.svg"            alt="Mosten">
+          <img class="carousel-logo" src="logos/logo-ecoporto.png"     alt="Ecoporto">
+          <img class="carousel-logo" src="logos/Ultracargo.svg"        alt="Ultracargo">
+          <img class="carousel-logo" src="logos/concais-logo.png"      alt="Concais S.A">
+          <img class="carousel-logo" src="logos/builtup-logo.jpeg"     alt="BuiltUP">
+          <img class="carousel-logo" src="logos/global-ship.png"       alt="GlobalShip">
+          <img class="carousel-logo" src="logos/logo_brasil_export.webp" alt="Fórum Brasil Export">
+          <!-- duplicata para loop infinito -->
+          <img class="carousel-logo" src="logos/mosten.svg"            alt="Mosten">
+          <img class="carousel-logo" src="logos/logo-ecoporto.png"     alt="Ecoporto">
+          <img class="carousel-logo" src="logos/Ultracargo.svg"        alt="Ultracargo">
+          <img class="carousel-logo" src="logos/concais-logo.png"      alt="Concais S.A">
+          <img class="carousel-logo" src="logos/builtup-logo.jpeg"     alt="BuiltUP">
+          <img class="carousel-logo" src="logos/global-ship.png"       alt="GlobalShip">
+          <img class="carousel-logo" src="logos/logo_brasil_export.webp" alt="Fórum Brasil Export">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About me</div>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <h2 class="section-title" style="margin-bottom:1.5rem">Quality is<br><em style="font-family:var(--font-display);font-style:italic;color:var(--granite)">the feature.</em></h2>
+        <p>I'm a QA Analyst focused on delivering reliable software through meticulous testing, clear documentation and close collaboration with development teams.</p>
+        <p>With experience at Mosten, I've been involved in both manual and automated test flows, API validation, and bug lifecycle management across web applications.</p>
+        <div class="about-pills">
+          <span class="pill">Cypress</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">Postman</span>
+          <span class="pill">Insomnia</span>
+          <span class="pill">Jira</span>
+          <span class="pill">Azure Boards</span>
+        </div>
+      </div>
+
+      <div class="about-skills fade-up" style="transition-delay:0.15s">
+        <div class="skill-group">
+          <div class="skill-group-label">Testing</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>Manual Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;--delay:0.2s"></div></div></div>
+            <div class="skill-item"><span>API Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;--delay:0.3s"></div></div></div>
+            <div class="skill-item"><span>Test Automation</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%;--delay:0.4s"></div></div></div>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Tools</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>Cypress + JS</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:72%;--delay:0.5s"></div></div></div>
+            <div class="skill-item"><span>Postman / Insomnia</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%;--delay:0.6s"></div></div></div>
+            <div class="skill-item"><span>Jira / Azure Boards</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%;--delay:0.7s"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="exp-card fade-up">
+      <div class="exp-meta">Mar 2024 – Present &nbsp;·&nbsp; Santos, SP – Hybrid</div>
+      <div class="exp-role">QA Analyst Jr</div>
+      <div class="exp-company">Mosten</div>
+      <ul class="exp-bullets">
+        <li>Performed manual and exploratory testing on web applications throughout the development lifecycle.</li>
+        <li>Validated REST APIs using Postman and Insomnia, ensuring endpoint reliability and data integrity.</li>
+        <li>Developed and maintained automated test scripts using Cypress and JavaScript.</li>
+        <li>Managed bug lifecycle and test case documentation in Jira and Azure Boards.</li>
+        <li>Collaborated closely with developers to reproduce, report and verify bug fixes.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">My work</h2>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-placeholder"><span class="project-placeholder-icon">🧪</span></div>
+        <div class="project-tags"><span class="project-tag">Cypress</span><span class="project-tag">JavaScript</span></div>
+        <div class="project-title">E2E Test Suite</div>
+        <p class="project-desc">Automated end-to-end test suite covering critical user flows using Cypress.</p>
+        <p class="project-coming">Coming soon</p>
+      </div>
+      <div class="project-card fade-up" style="transition-delay:0.1s">
+        <div class="project-placeholder"><span class="project-placeholder-icon">📡</span></div>
+        <div class="project-tags"><span class="project-tag">Postman</span><span class="project-tag">API</span></div>
+        <div class="project-title">API Test Collection</div>
+        <p class="project-desc">Postman collection with automated assertions for a RESTful API project.</p>
+        <p class="project-coming">Coming soon</p>
+      </div>
+      <div class="project-card fade-up" style="transition-delay:0.2s">
+        <div class="project-placeholder"><span class="project-placeholder-icon">📋</span></div>
+        <div class="project-tags"><span class="project-tag">QA</span><span class="project-tag">Documentation</span></div>
+        <div class="project-title">Test Plan Template</div>
+        <p class="project-desc">Structured test plan and case documentation template for agile teams.</p>
+        <p class="project-coming">Coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Let's connect</h2>
+    <p class="contact-sub">Open to new opportunities and collaborations.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="/cdn-cgi/l/email-protection#1a786e7c346c73796e7568697c2a282a2c5a7d777b737634797577">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span class="__cf_email__" data-cfemail="a8cadcce86dec1cbdcc7dadbce989a989ee8cfc5c9c1c486cbc7c5">[email&#160;protected]</span>
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/victor-souza-fagundes-f15/" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="contact-link" href="https://github.com/Vctrsf" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© Victor Fagundes, 2026</p>
+    <p>Built with HTML & CSS · <a href="https://github.com/Vctrsf" target="_blank">github.com/Vctrsf</a></p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.m
