@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Victor Fagundes - QA Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <script src="main.js" defer></script>
+  <style>
+    :root {
+      --bg:        #F2F5F0;
+      --surface:   #E4EBE0;
+      --sage:      #7A9E6E;
+      --army:      #3D5C35;
+      --forest:    #2C3D28;
+      --body-text: #2A3528;
+      --muted:     #536B4A;
+      --border:    rgba(74,110,58,0.18);
+      --black:     #0A0A0A;
+      --white:     #FFFFFF;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--body-text); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; background: rgba(242,245,240,0.9); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.1rem; color: var(--forest); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--forest); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+    .lang-toggle { display: flex; align-items: center; background: rgba(122,158,110,0.1); border: 1.5px solid var(--border); border-radius: 100px; overflow: hidden; height: 34px; }
+    .lang-btn { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; color: var(--muted); background: transparent; border: none; padding: 0 0.85rem; height: 100%; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .lang-btn.active { background: var(--army); color: var(--white); border-radius: 100px; }
+    .lang-btn:not(.active):hover { color: var(--forest); }
+
+    .cv-dropdown { position: relative; }
+    .cv-trigger { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 500; color: var(--army); border: 1.5px solid var(--sage); padding: 0 1rem; height: 34px; border-radius: 100px; background: transparent; cursor: pointer; letter-spacing: 0.04em; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+    .cv-trigger svg { width: 14px; height: 14px; fill: currentColor; }
+    .cv-trigger:hover { background: var(--sage); color: var(--white); }
+    .cv-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(44,61,40,0.12); min-width: 180px; z-index: 200; }
+    .cv-menu.open { display: block; }
+    .cv-menu-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.75rem 1.1rem; font-size: 0.85rem; font-weight: 500; color: var(--forest); text-decoration: none; transition: background 0.15s; border-bottom: 1px solid var(--border); }
+    .cv-menu-item:last-child { border-bottom: none; }
+    .cv-menu-item:hover { background: var(--surface); }
+    .cv-lang-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; background: var(--army); color: var(--white); padding: 0.15rem 0.5rem; border-radius: 100px; margin-left: auto; }
+    .cv-menu-item svg { width: 14px; height: 14px; fill: var(--sage); flex-shrink: 0; }
+
+    .nav-cta { font-size: 0.8rem; font-weight: 500; color: var(--forest); border: 1.5px solid var(--sage); padding: 0 1.1rem; height: 34px; display: inline-flex; align-items: center; border-radius: 100px; text-decoration: none; letter-spacing: 0.05em; transition: background 0.2s, color 0.2s, border-color 0.2s; white-space: nowrap; }
+    .nav-cta:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    #home { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10rem 3rem 0; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 55% 45% at 85% 15%, rgba(122,158,110,0.18) 0%, transparent 65%), radial-gradient(ellipse 40% 35% at 8% 85%, rgba(61,92,53,0.10) 0%, transparent 60%); }
+    .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+    .hero-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--sage), var(--army)); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.4rem; color: var(--white); margin-bottom: 1.25rem; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); }
+    .hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .hero-name { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; color: var(--forest); margin-bottom: 1.5rem; }
+    .hero-desc { font-size: 1rem; font-weight: 400; line-height: 1.75; color: var(--body-text); max-width: 480px; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 5rem; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; background: var(--black); color: var(--white); padding: 0.75rem 1.75rem; border-radius: 100px; text-decoration: none; letter-spacing: 0.03em; transition: background 0.2s, transform 0.15s; }
+    .btn-primary:hover { background: var(--forest); transform: translateY(-1px); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 400; color: var(--army); padding: 0.75rem 1.75rem; border-radius: 100px; border: 1.5px solid var(--sage); text-decoration: none; letter-spacing: 0.03em; transition: border-color 0.2s, color 0.2s; }
+    .btn-secondary:hover { border-color: var(--army); color: var(--forest); }
+
+    .carousel-wrapper { position: relative; z-index: 1; width: 100vw; padding: 2rem 0 3rem; background: var(--black); border-top: 2px solid rgba(122,158,110,0.3); }
+    .carousel-label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); text-align: center; margin-bottom: 1.5rem; }
+    .carousel-track-outer { overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%); mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%); }
+    .carousel-track { display: flex; gap: 4rem; align-items: center; width: max-content; animation: marquee 28s linear infinite; }
+    .carousel-track:hover { animation-play-state: paused; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .carousel-logo { height: 36px; width: auto; object-fit: contain; opacity: 0.65; filter: grayscale(100%) brightness(2); transition: opacity 0.3s, filter 0.3s; user-select: none; }
+    .carousel-logo:hover { opacity: 1; filter: grayscale(0%) brightness(1); }
+
+    section { padding: 6rem 3rem; }
+    .section-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+    .section-label::before { content: ''; display: inline-block; width: 20px; height: 1.5px; background: var(--sage); }
+    .section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); color: var(--forest); line-height: 1.15; margin-bottom: 3rem; }
+
+    #about { background: var(--surface); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; max-width: 1000px; }
+    .about-text p { font-size: 1rem; font-weight: 400; line-height: 1.8; color: var(--body-text); margin-bottom: 1.25rem; }
+    .about-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .pill { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; color: var(--army); background: rgba(122,158,110,0.12); border: 1px solid rgba(122,158,110,0.3); padding: 0.4rem 0.9rem; border-radius: 100px; }
+    .skill-group { margin-bottom: 2rem; }
+    .skill-group-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .skill-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .skill-item { display: flex; align-items: center; justify-content: space-between; font-size: 0.875rem; color: var(--body-text); }
+    .skill-bar-track { width: 120px; height: 3px; background: rgba(61,92,53,0.15); border-radius: 10px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; background: var(--sage); border-radius: 10px; transform-origin: left; animation: barIn 1s ease forwards; animation-delay: var(--delay, 0s); transform: scaleX(0); }
+    @keyframes barIn { to { transform: scaleX(1); } }
+
+    #experience { background: var(--bg); }
+    .exp-card { max-width: 680px; border-left: 2px solid var(--sage); padding-left: 2rem; position: relative; }
+    .exp-card + .exp-card { margin-top: 3rem; }
+    .exp-card::before { content: ''; position: absolute; left: -5px; top: 0.3rem; width: 8px; height: 8px; background: var(--sage); border-radius: 50%; }
+    .exp-meta { font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.5rem; }
+    .exp-role { font-family: var(--font-display); font-size: 1.4rem; color: var(--forest); margin-bottom: 0.25rem; }
+    .exp-company { font-size: 0.9rem; font-weight: 500; color: var(--army); margin-bottom: 1.25rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .exp-bullets li { font-size: 0.9rem; font-weight: 400; line-height: 1.65; color: var(--body-text); padding-left: 1rem; position: relative; }
+    .exp-bullets li::before { content: '-'; position: absolute; left: 0; color: var(--sage); }
+
+    #projects { background: var(--surface); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card { background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--sage), var(--army)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(44,61,40,0.1); }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-placeholder { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, var(--surface) 0%, rgba(122,158,110,0.2) 100%); border-radius: 8px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; }
+    .project-placeholder-icon { font-size: 2rem; opacity: 0.4; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .project-tag { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--army); background: rgba(122,158,110,0.12); padding: 0.2rem 0.6rem; border-radius: 100px; }
+    .project-title { font-family: var(--font-display); font-size: 1.15rem; color: var(--forest); margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.85rem; font-weight: 400; line-height: 1.65; color: var(--body-text); }
+    .project-coming { margin-top: 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); }
+
+    #contact { background: var(--black); text-align: center; }
+    #contact .section-label { justify-content: center; color: var(--sage); }
+    #contact .section-label::before { background: var(--sage); }
+    #contact .section-title { color: var(--white); margin-bottom: 1rem; }
+    .contact-sub { font-size: 1rem; font-weight: 300; color: var(--sage); margin-bottom: 3rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; font-weight: 400; color: #C8D8C4; text-decoration: none; padding: 0.75rem 1.5rem; border: 1px solid rgba(122,158,110,0.35); border-radius: 100px; letter-spacing: 0.04em; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+    .contact-link:hover { border-color: var(--sage); color: var(--white); background: rgba(122,158,110,0.12); }
+    .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+    footer { background: var(--black); border-top: 1px solid rgba(122,158,110,0.2); padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.78rem; color: var(--sage); letter-spacing: 0.04em; }
+    footer a { color: #C8D8C4; text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
+      .nav-links { display: none; }
+      .nav-right { flex-wrap: wrap; }
+      section { padding: 4rem 1.5rem; }
+      #home { padding: 8rem 1.5rem 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#home">Victor Fagundes</a>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-en">EN</button>
+        <button class="lang-btn" id="btn-pt">PT</button>
+      </div>
+      <div class="cv-dropdown">
+        <button class="cv-trigger" id="cv-trigger">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download CV
+          <svg viewBox="0 0 24 24" style="width:12px;height:12px;margin-left:2px;fill:currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+        </button>
+        <div class="cv-menu" id="cv-menu">
+          <a class="cv-menu-item" href="cv/Victor_Fagundes_QA_EN.pdf" download="Victor_Fagundes_QA_EN.pdf">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            English
+            <span class="cv-lang-tag">EN</span>
+          </a>
+          <a class="cv-menu-item" href="cv/Victor_Fagundes_QA_PT.pdf" download="Victor_Fagundes_QA_PT.pdf">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            <span id="cv-pt-label">Portugu&#234;s</span>
+            <span class="cv-lang-tag">PT</span>
+          </a>
+        </div>
+      </div>
+      <a class="nav-cta" href="mailto:btf.victorsf0206@gmail.com" data-i18n="nav.cta">Get in touch &#x2197;</a>
+    </div>
+  </nav>
+
+  <section id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-avatar">VF</div>
+      <span class="hero-tag">Victor Fagundes</span>
+      <h1 class="hero-name" data-i18n="hero.title">QA Analyst</h1>
+      <p class="hero-desc" data-i18n="hero.desc">Quality Assurance professional with 2+ years of experience ensuring software reliability through structured testing, automation and process improvement.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#experience" data-i18n="hero.cta">See my work</a>
+        <a class="btn-secondary" href="https://linkedin.com/in/victor-souza-fagundes-f15/" target="_blank">LinkedIn &#x2197;</a>
+      </div>
+    </div>
+    <div class="carousel-wrapper">
+      <p class="carousel-label" data-i18n="carousel.label">Companies I helped</p>
+      <div class="carousel-track-outer">
+        <div class="carousel-track">
+          <img class="carousel-logo" src="logos/mosten.svg" alt="Mosten">
+          <img class="carousel-logo" src="logos/logo-ecoporto.png" alt="Ecoporto">
+          <img class="carousel-logo" src="logos/Ultracargo.svg" alt="Ultracargo">
+          <img class="carousel-logo" src="logos/concais-logo.png" alt="Concais S.A">
+          <img class="carousel-logo" src="logos/builtup-logo.jpeg" alt="BuiltUP">
+          <img class="carousel-logo" src="logos/global-ship.png" alt="GlobalShip">
+          <img class="carousel-logo" src="logos/logo_brasil_export.webp" alt="Forum Brasil Export">
+          <img class="carousel-logo" src="logos/mosten.svg" alt="Mosten">
+          <img class="carousel-logo" src="logos/logo-ecoporto.png" alt="Ecoporto">
+          <img class="carousel-logo" src="logos/Ultracargo.svg" alt="Ultracargo">
+          <img class="carousel-logo" src="logos/concais-logo.png" alt="Concais S.A">
+          <img class="carousel-logo" src="logos/builtup-logo.jpeg" alt="BuiltUP">
+          <img class="carousel-logo" src="logos/global-ship.png" alt="GlobalShip">
+          <img class="carousel-logo" src="logos/logo_brasil_export.webp" alt="Forum Brasil Export">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-label" data-i18n="about.label">About me</div>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <h2 class="section-title" style="margin-bottom:1.5rem">
+          <span data-i18n="about.title1">Quality is</span><br>
+          <em style="font-family:var(--font-display);font-style:italic;color:var(--sage)" data-i18n="about.title2">the feature.</em>
+        </h2>
+        <p data-i18n="about.p1">I'm a QA Analyst with 2+ years of experience in the software development lifecycle, working with manual testing, test automation and API validation across web and mobile applications.</p>
+        <p data-i18n="about.p2">At Mosten, I progressed from intern to analyst, building E2E and API test suites with Cypress and Cucumber, integrating them into CI/CD pipelines, and collaborating closely with dev teams in Scrum environments.</p>
+        <div class="about-pills">
+          <span class="pill">Cypress</span><span class="pill">JavaScript</span>
+          <span class="pill">Cucumber / BDD</span><span class="pill">Postman</span>
+          <span class="pill">Insomnia</span><span class="pill">Jira</span>
+          <span class="pill">Azure DevOps</span><span class="pill">SQL</span>
+          <span class="pill">Git / GitHub</span><span class="pill">CI/CD</span>
+          <span class="pill">Scrum</span>
+        </div>
+      </div>
+      <div class="about-skills fade-up" style="transition-delay:0.15s">
+        <div class="skill-group">
+          <div class="skill-group-label" data-i18n="skills.testing">Testing</div>
+          <div class="skill-list">
+            <div class="skill-item"><span data-i18n="skills.manual">Manual Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;--delay:0.2s"></div></div></div>
+            <div class="skill-item"><span data-i18n="skills.api">API Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;--delay:0.3s"></div></div></div>
+            <div class="skill-item"><span data-i18n="skills.automation">Test Automation</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%;--delay:0.4s"></div></div></div>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label" data-i18n="skills.tools">Tools</div>
+          <div class="skill-list">
+            <div class="skill-item"><span>Cypress + JS</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%;--delay:0.5s"></div></div></div>
+            <div class="skill-item"><span>Postman / Insomnia</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%;--delay:0.6s"></div></div></div>
+            <div class="skill-item"><span>Jira / Azure DevOps</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;--delay:0.7s"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-label" data-i18n="exp.label">Experience</div>
+    <h2 class="section-title" data-i18n="exp.title">Where I've worked</h2>
+    <div class="exp-card fade-up">
+      <div class="exp-meta">Dec 2024 &#8211; Aug 2025 &nbsp;&#183;&nbsp; Santos, SP &#8211; <span data-i18n="work.hybrid">Hybrid</span></div>
+      <div class="exp-role" data-i18n="exp1.role">QA Analyst Jr</div>
+      <div class="exp-company">Mosten</div>
+      <ul class="exp-bullets">
+        <li data-i18n="exp1.b1">Authored detailed test plans and cases from requirements and user stories, ensuring full coverage of functional and non-functional scenarios for web and mobile applications.</li>
+        <li data-i18n="exp1.b2">Executed functional, regression and exploratory manual tests, documenting bugs in JIRA and Azure DevOps with reproduction steps, evidence and follow-up until resolution.</li>
+        <li data-i18n="exp1.b3">Automated E2E and API tests with Cypress, JavaScript and Cucumber, applying BDD with Gherkin and integrating execution into CI/CD pipelines on Azure DevOps.</li>
+        <li data-i18n="exp1.b4">Tested APIs with Insomnia and Postman, validating request/response, error handling and system integrations, using SQL for data queries and validation.</li>
+        <li data-i18n="exp1.b5">Participated actively in Scrum ceremonies, refinements, plannings, reviews and retrospectives, contributing with acceptance criteria and risk assessment before sprints.</li>
+        <li data-i18n="exp1.b6">Collaborated with dev teams using Chrome DevTools for technical inspection and UX improvement evidence.</li>
+      </ul>
+    </div>
+    <div class="exp-card fade-up">
+      <div class="exp-meta">Jan 2024 &#8211; Dec 2024 &nbsp;&#183;&nbsp; Santos, SP &#8211; <span data-i18n="work.hybrid">Hybrid</span></div>
+      <div class="exp-role" data-i18n="exp2.role">QA Software Intern</div>
+      <div class="exp-company">Mosten</div>
+      <ul class="exp-bullets">
+        <li data-i18n="exp2.b1">Executed exploratory and manual tests on web and mobile applications (Android and iOS), ensuring functional coverage and identification of UI/UX inconsistencies during the SDLC.</li>
+        <li data-i18n="exp2.b2">Authored test matrices and test books, documenting results and collaborating on expanding regression suites with Cypress, Selenium and Git/GitHub.</li>
+        <li data-i18n="exp2.b3">Supported the shift-left approach by participating in requirements and acceptance criteria reviews with business analysts and tech leads before development started.</li>
+        <li data-i18n="exp2.b4">Optimized manual test flows and improved communication with proactive bug reporting, contributing to more predictable sprints and a lower defect rate.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-label" data-i18n="proj.label">Projects</div>
+    <h2 class="section-title" data-i18n="proj.title">My work</h2>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-placeholder"><span class="project-placeholder-icon">&#x1F9EA;</span></div>
+        <div class="project-tags"><span class="project-tag">Cypress</span><span class="project-tag">JavaScript</span></div>
+        <div class="project-title" data-i18n="proj1.title">E2E Test Suite</div>
+        <p class="project-desc" data-i18n="proj1.desc">Automated end-to-end test suite covering critical user flows using Cypress.</p>
+        <p class="project-coming" data-i18n="proj.soon">Coming soon</p>
+      </div>
+      <div class="project-card fade-up" style="transition-delay:0.1s">
+        <div class="project-placeholder"><span class="project-placeholder-icon">&#x1F4E1;</span></div>
+        <div class="project-tags"><span class="project-tag">Postman</span><span class="project-tag">API</span></div>
+        <div class="project-title" data-i18n="proj2.title">API Test Collection</div>
+        <p class="project-desc" data-i18n="proj2.desc">Postman collection with automated assertions for a RESTful API project.</p>
+        <p class="project-coming" data-i18n="proj.soon">Coming soon</p>
+      </div>
+      <div class="project-card fade-up" style="transition-delay:0.2s">
+        <div class="project-placeholder"><span class="project-placeholder-icon">&#x1F4CB;</span></div>
+        <div class="project-tags"><span class="project-tag">QA</span><span class="project-tag">Documentation</span></div>
+        <div class="project-title" data-i18n="proj3.title">Test Plan Template</div>
+        <p class="project-desc" data-i18n="proj3.desc">Structured test plan and case documentation template for agile teams.</p>
+        <p class="project-coming" data-i18n="proj.soon">Coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-label" data-i18n="contact.label">Contact</div>
+    <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
+    <p class="contact-sub" data-i18n="contact.sub">Open to new opportunities and collaborations.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:btf.victorsf0206@gmail.com">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        btf.victorsf0206@gmail.com
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/victor-souza-fagundes-f15/" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="contact-link" href="https://github.com/Vctrsf" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&#169; Victor Fagundes, 2026</p>
+    <p>Built with HTML &amp; CSS &#183; <a href="https://github.com/Vctrsf" target="_blank">github.com/Vctrsf</a></p>
+  </footer>
+
+</body>
+</html>
