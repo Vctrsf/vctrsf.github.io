@@ -1,4 +1,3 @@
-// i18n translations
 var T = {
   en: {
     'nav.about':'About','nav.experience':'Experience','nav.projects':'Projects','nav.contact':'Contact','nav.cta':'Get in touch \u2197',
@@ -78,31 +77,36 @@ function setLang(lang) {
   applyLang(lang);
 }
 
-// Init
-  // Detecta idioma do navegador
-  var bl = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-  setLang(bl.startsWith('pt') ? 'pt' : 'en');
+// Detecta idioma do navegador
+var bl = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+setLang(bl.startsWith('pt') ? 'pt' : 'en');
 
-  // Botões de idioma
-  document.getElementById('btn-en').addEventListener('click', function() { setLang('en'); });
-  document.getElementById('btn-pt').addEventListener('click', function() { setLang('pt'); });
+// Botoes de idioma
+document.getElementById('btn-en').addEventListener('click', function() { setLang('en'); });
+document.getElementById('btn-pt').addEventListener('click', function() { setLang('pt'); });
 
-  // Dropdown CV
-  var trigger = document.getElementById('cv-trigger');
-  var menu = document.getElementById('cv-menu');
-  trigger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    menu.classList.toggle('open');
+// Dropdown CV
+var cvTrigger = document.getElementById('cv-trigger');
+var cvMenu = document.getElementById('cv-menu');
+cvTrigger.addEventListener('click', function(e) {
+  e.stopPropagation();
+  cvMenu.classList.toggle('open');
+});
+document.addEventListener('click', function() {
+  cvMenu.classList.remove('open');
+});
+
+// Fade-up — visivel imediatamente + observer para elementos abaixo do fold
+document.querySelectorAll('.fade-up').forEach(function(el) {
+  el.classList.add('visible');
+});
+
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) e.target.classList.add('visible');
   });
-  document.addEventListener('click', function() {
-    menu.classList.remove('open');
-  });
+}, { threshold: 0.01 });
 
-  // Fade-up
-  setTimeout(function() {
-    document.querySelectorAll('.fade-up').forEach(function(el) { el.classList.add('visible'); });
-  }, 200);
-  var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.01 });
-  document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+document.querySelectorAll('.fade-up').forEach(function(el) {
+  obs.observe(el);
+});
