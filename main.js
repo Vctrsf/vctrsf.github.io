@@ -78,7 +78,7 @@ function setLang(lang) {
   applyLang(lang);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// Init
   // Detecta idioma do navegador
   var bl = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
   setLang(bl.startsWith('pt') ? 'pt' : 'en');
@@ -106,4 +106,3 @@ document.addEventListener('DOMContentLoaded', function() {
     entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.01 });
   document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
-});
