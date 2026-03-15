@@ -23,6 +23,25 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const elements = document.querySelectorAll(".fade-up");
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.15 });
+
+  elements.forEach(function(el) {
+    observer.observe(el);
+  });
+
+});
+</script>
     body { font-family: var(--font-body); background: var(--bg); color: var(--body-text); overflow-x: hidden; }
 
     /* NAV */
