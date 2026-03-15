@@ -140,22 +140,18 @@
 
     .fade-up {
       animation: fadeUp 0.7s ease both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 25%;
     }
 
-    /* Delays escalonados por ordem de aparição */
-    .fade-up:nth-child(1) { animation-delay: 0.05s; }
-    .fade-up:nth-child(2) { animation-delay: 0.15s; }
-    .fade-up:nth-child(3) { animation-delay: 0.25s; }
-    .fade-up:nth-child(4) { animation-delay: 0.35s; }
+    .project-card {
+      animation: fadeUp 0.7s ease both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 25%;
+    }
 
-    /* Cards de projeto */
-    .project-card:nth-child(1) { animation: fadeUp 0.7s ease 0.05s both; }
-    .project-card:nth-child(2) { animation: fadeUp 0.7s ease 0.15s both; }
-    .project-card:nth-child(3) { animation: fadeUp 0.7s ease 0.25s both; }
-
-    /* Respeita preferência de movimento reduzido */
     @media (prefers-reduced-motion: reduce) {
-      .fade-up, .project-card { animation: none; }
+      .fade-up, .project-card { animation: none; opacity: 1; transform: none; }
     }
 
     @media (max-width: 700px) {
@@ -181,8 +177,8 @@
     </ul>
     <div class="nav-right">
       <div class="lang-toggle">
-        <button class="lang-btn active" id="btn-en">EN</button>
         <button class="lang-btn" id="btn-pt">PT</button>
+        <button class="lang-btn" id="btn-en">EN</button>
       </div>
       <div class="cv-dropdown">
         <button class="cv-trigger" id="cv-trigger">
