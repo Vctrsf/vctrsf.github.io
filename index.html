@@ -23,28 +23,9 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const elements = document.querySelectorAll(".fade-up");
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  }, { threshold: 0.15 });
-
-  elements.forEach(function(el) {
-    observer.observe(el);
-  });
-
-});
-</script>
     body { font-family: var(--font-body); background: var(--bg); color: var(--body-text); overflow-x: hidden; }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
@@ -57,10 +38,54 @@ document.addEventListener("DOMContentLoaded", function () {
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 0.875rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
     .nav-links a:hover { color: var(--forest); }
+
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+    /* Botão EN/PT */
+    .lang-toggle {
+      display: flex; align-items: center;
+      background: rgba(122,158,110,0.1);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+      height: 34px;
+    }
+    .lang-btn {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--muted); background: transparent; border: none;
+      padding: 0 0.85rem; height: 100%; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--army); color: var(--white);
+      border-radius: 100px;
+    }
+    .lang-btn:not(.active):hover { color: var(--forest); }
+
+    /* Google Translate widget oculto mas funcional */
+    .lang-extra {
+      position: relative;
+    }
+    .lang-extra-btn {
+      font-size: 0.72rem; font-weight: 500; color: var(--muted);
+      background: transparent; border: 1.5px solid var(--border);
+      border-radius: 100px; padding: 0 0.85rem; height: 34px;
+      cursor: pointer; display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .lang-extra-btn:hover { border-color: var(--sage); color: var(--forest); }
+    .lang-extra-btn svg { width: 13px; height: 13px; fill: currentColor; }
+
+    /* Oculta o banner feio do Google Translate */
+    .goog-te-banner-frame, .skiptranslate { display: none !important; }
+    body { top: 0 !important; }
+    .goog-te-gadget { display: none !important; }
+
     .nav-cta { font-size: 0.8rem; font-weight: 500; color: var(--forest); border: 1.5px solid var(--sage); padding: 0.45rem 1.1rem; border-radius: 100px; text-decoration: none; letter-spacing: 0.05em; transition: background 0.2s, color 0.2s, border-color 0.2s; }
     .nav-cta:hover { background: var(--black); color: var(--white); border-color: var(--black); }
 
-    /* HERO */
+    /* ── HERO ── */
     #home { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10rem 3rem 0; position: relative; overflow: hidden; }
     .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 55% 45% at 85% 15%, rgba(122,158,110,0.18) 0%, transparent 65%), radial-gradient(ellipse 40% 35% at 8% 85%, rgba(61,92,53,0.10) 0%, transparent 60%); }
     .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
@@ -76,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 400; color: var(--army); padding: 0.75rem 1.75rem; border-radius: 100px; border: 1.5px solid var(--sage); text-decoration: none; letter-spacing: 0.03em; transition: border-color 0.2s, color 0.2s; }
     .btn-secondary:hover { border-color: var(--army); color: var(--forest); }
 
-    /* CARROSSEL */
+    /* ── CARROSSEL ── */
     .carousel-wrapper { position: relative; z-index: 1; width: 100vw; padding: 2rem 0 3rem; background: var(--black); border-top: 2px solid rgba(122,158,110,0.3); }
     .carousel-label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); text-align: center; margin-bottom: 1.5rem; }
     .carousel-track-outer { overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%); mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%); }
@@ -86,13 +111,13 @@ document.addEventListener("DOMContentLoaded", function () {
     .carousel-logo { height: 36px; width: auto; object-fit: contain; opacity: 0.65; filter: grayscale(100%) brightness(2); transition: opacity 0.3s, filter 0.3s; user-select: none; }
     .carousel-logo:hover { opacity: 1; filter: grayscale(0%) brightness(1); }
 
-    /* SECTION COMUM */
+    /* ── SECTION COMUM ── */
     section { padding: 6rem 3rem; }
     .section-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
     .section-label::before { content: ''; display: inline-block; width: 20px; height: 1.5px; background: var(--sage); }
     .section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); color: var(--forest); line-height: 1.15; margin-bottom: 3rem; }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     #about { background: var(--surface); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; max-width: 1000px; }
     .about-text p { font-size: 1rem; font-weight: 400; line-height: 1.8; color: var(--body-text); margin-bottom: 1.25rem; }
@@ -106,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .skill-bar-fill { height: 100%; background: var(--sage); border-radius: 10px; transform-origin: left; animation: barIn 1s ease forwards; animation-delay: var(--delay, 0s); transform: scaleX(0); }
     @keyframes barIn { to { transform: scaleX(1); } }
 
-    /* EXPERIENCE */
+    /* ── EXPERIENCE ── */
     #experience { background: var(--bg); }
     .exp-card { max-width: 680px; border-left: 2px solid var(--sage); padding-left: 2rem; position: relative; }
     .exp-card + .exp-card { margin-top: 3rem; }
@@ -118,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .exp-bullets li { font-size: 0.9rem; font-weight: 400; line-height: 1.65; color: var(--body-text); padding-left: 1rem; position: relative; }
     .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--sage); }
 
-    /* PROJECTS */
+    /* ── PROJECTS ── */
     #projects { background: var(--surface); }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
     .project-card { background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
@@ -133,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .project-desc { font-size: 0.85rem; font-weight: 400; line-height: 1.65; color: var(--body-text); }
     .project-coming { margin-top: 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); }
 
-    /* CONTACT */
+    /* ── CONTACT ── */
     #contact { background: var(--black); text-align: center; }
     #contact .section-label { justify-content: center; color: var(--sage); }
     #contact .section-label::before { background: var(--sage); }
@@ -144,20 +169,21 @@ document.addEventListener("DOMContentLoaded", function () {
     .contact-link:hover { border-color: var(--sage); color: var(--white); background: rgba(122,158,110,0.12); }
     .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer { background: var(--black); border-top: 1px solid rgba(122,158,110,0.2); padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; }
     footer p { font-size: 0.78rem; color: var(--sage); letter-spacing: 0.04em; }
     footer a { color: #C8D8C4; text-decoration: none; }
     footer a:hover { color: var(--white); }
 
-    /* FADE IN */
+    /* ── FADE IN ── */
     .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* MOBILE */
+    /* ── MOBILE ── */
     @media (max-width: 700px) {
-      nav { padding: 1rem 1.5rem; }
+      nav { padding: 1rem 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
       .nav-links { display: none; }
+      .nav-right { flex-wrap: wrap; }
       section { padding: 4rem 1.5rem; }
       #home { padding: 8rem 1.5rem 0; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -167,16 +193,33 @@ document.addEventListener("DOMContentLoaded", function () {
 </head>
 <body>
 
+  <!-- Google Translate element oculto -->
+  <div id="google_translate_element" style="display:none"></div>
+
   <!-- NAV -->
   <nav>
     <a class="nav-logo" href="#home">Victor Fagundes</a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
-    <a class="nav-cta" href="mailto:btf.victorsf0206@gmail.com">Get in touch ↗</a>
+    <div class="nav-right">
+      <!-- Toggle EN / PT -->
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('pt')">PT</button>
+      </div>
+      <!-- Outros idiomas via Google Translate -->
+      <div class="lang-extra">
+        <button class="lang-extra-btn" onclick="toggleGT()" title="Other languages">
+          <svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+          More languages
+        </button>
+      </div>
+      <a class="nav-cta" href="mailto:btf.victorsf0206@gmail.com" data-i18n="nav.cta">Get in touch ↗</a>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -185,17 +228,17 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="hero-content">
       <div class="hero-avatar">VF</div>
       <span class="hero-tag">Victor Fagundes</span>
-      <h1 class="hero-name">QA Analyst</h1>
-      <p class="hero-desc">Quality Assurance professional with 2+ years of experience ensuring software reliability through structured testing, automation and process improvement.</p>
+      <h1 class="hero-name" data-i18n="hero.title">QA Analyst</h1>
+      <p class="hero-desc" data-i18n="hero.desc">Quality Assurance professional with 2+ years of experience ensuring software reliability through structured testing, automation and process improvement.</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#experience">See my work</a>
+        <a class="btn-primary" href="#experience" data-i18n="hero.cta">See my work</a>
         <a class="btn-secondary" href="https://linkedin.com/in/victor-souza-fagundes-f15/" target="_blank">LinkedIn ↗</a>
       </div>
     </div>
 
     <!-- CARROSSEL -->
     <div class="carousel-wrapper">
-      <p class="carousel-label">Projects & companies i worked on</p>
+      <p class="carousel-label" data-i18n="carousel.label">Companies I helped</p>
       <div class="carousel-track-outer">
         <div class="carousel-track">
           <img class="carousel-logo" src="logos/mosten.svg"              alt="Mosten">
@@ -205,7 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <img class="carousel-logo" src="logos/builtup-logo.jpeg"       alt="BuiltUP">
           <img class="carousel-logo" src="logos/global-ship.png"         alt="GlobalShip">
           <img class="carousel-logo" src="logos/logo_brasil_export.webp" alt="Forum Brasil Export">
-          <!-- duplicata loop infinito -->
           <img class="carousel-logo" src="logos/mosten.svg"              alt="Mosten">
           <img class="carousel-logo" src="logos/logo-ecoporto.png"       alt="Ecoporto">
           <img class="carousel-logo" src="logos/Ultracargo.svg"          alt="Ultracargo">
@@ -220,40 +262,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
   <!-- ABOUT -->
   <section id="about">
-    <div class="section-label">About me</div>
+    <div class="section-label" data-i18n="about.label">About me</div>
     <div class="about-grid">
       <div class="about-text fade-up">
-        <h2 class="section-title" style="margin-bottom:1.5rem">Quality is<br>
-          <em style="font-family:var(--font-display);font-style:italic;color:var(--sage)">the feature.</em>
+        <h2 class="section-title" style="margin-bottom:1.5rem">
+          <span data-i18n="about.title1">Quality is</span><br>
+          <em style="font-family:var(--font-display);font-style:italic;color:var(--sage)" data-i18n="about.title2">the feature.</em>
         </h2>
-        <p>I'm a QA Analyst with 2+ years of experience in the software development lifecycle, working with manual testing, test automation and API validation across web and mobile applications.</p>
-        <p>I progressed from intern to QA Analyst, developing E2E and API test suites using Cypress and Cucumber, contributing to automated testing workflows and collaborating closely with development teams in Scrum environments.</p>
+        <p data-i18n="about.p1">I'm a QA Analyst with 2+ years of experience in the software development lifecycle, working with manual testing, test automation and API validation across web and mobile applications.</p>
+        <p data-i18n="about.p2">At Mosten, I progressed from intern to analyst, building E2E and API test suites with Cypress and Cucumber, integrating them into CI/CD pipelines, and collaborating closely with dev teams in Scrum environments.</p>
         <div class="about-pills">
-          <span class="pill">Cypress</span>
-          <span class="pill">JavaScript</span>
-          <span class="pill">Cucumber / BDD</span>
-          <span class="pill">Postman</span>
-          <span class="pill">Insomnia</span>
-          <span class="pill">Jira</span>
-          <span class="pill">Azure DevOps</span>
-          <span class="pill">SQL</span>
-          <span class="pill">Git / GitHub</span>
-          <span class="pill">CI/CD</span>
+          <span class="pill">Cypress</span><span class="pill">JavaScript</span>
+          <span class="pill">Cucumber / BDD</span><span class="pill">Postman</span>
+          <span class="pill">Insomnia</span><span class="pill">Jira</span>
+          <span class="pill">Azure DevOps</span><span class="pill">SQL</span>
+          <span class="pill">Git / GitHub</span><span class="pill">CI/CD</span>
           <span class="pill">Scrum</span>
         </div>
       </div>
-
       <div class="about-skills fade-up" style="transition-delay:0.15s">
         <div class="skill-group">
-          <div class="skill-group-label">Testing</div>
+          <div class="skill-group-label" data-i18n="skills.testing">Testing</div>
           <div class="skill-list">
-            <div class="skill-item"><span>Manual Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;--delay:0.2s"></div></div></div>
-            <div class="skill-item"><span>API Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;--delay:0.3s"></div></div></div>
-            <div class="skill-item"><span>Test Automation</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%;--delay:0.4s"></div></div></div>
+            <div class="skill-item"><span data-i18n="skills.manual">Manual Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;--delay:0.2s"></div></div></div>
+            <div class="skill-item"><span data-i18n="skills.api">API Testing</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;--delay:0.3s"></div></div></div>
+            <div class="skill-item"><span data-i18n="skills.automation">Test Automation</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%;--delay:0.4s"></div></div></div>
           </div>
         </div>
         <div class="skill-group">
-          <div class="skill-group-label">Tools</div>
+          <div class="skill-group-label" data-i18n="skills.tools">Tools</div>
           <div class="skill-list">
             <div class="skill-item"><span>Cypress + JS</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%;--delay:0.5s"></div></div></div>
             <div class="skill-item"><span>Postman / Insomnia</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%;--delay:0.6s"></div></div></div>
@@ -266,70 +303,70 @@ document.addEventListener("DOMContentLoaded", function () {
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <div class="section-label">Experience</div>
-    <h2 class="section-title">Where I've worked</h2>
+    <div class="section-label" data-i18n="exp.label">Experience</div>
+    <h2 class="section-title" data-i18n="exp.title">Where I've worked</h2>
 
     <div class="exp-card fade-up">
       <div class="exp-meta">Dec 2024 – Aug 2025 &nbsp;·&nbsp; Santos, SP – Hybrid</div>
-      <div class="exp-role">QA Analyst Jr</div>
+      <div class="exp-role" data-i18n="exp1.role">QA Analyst Jr</div>
       <div class="exp-company">Mosten</div>
       <ul class="exp-bullets">
-        <li>Authored detailed test plans and cases from requirements and user stories, ensuring full coverage of functional and non-functional scenarios for web and mobile applications.</li>
-        <li>Executed functional, regression and exploratory manual tests, documenting bugs in JIRA and Azure DevOps with reproduction steps, evidence and follow-up until resolution.</li>
-        <li>Automated E2E and API tests with Cypress, JavaScript and Cucumber, applying BDD with Gherkin.</li>
-        <li>Tested APIs with Insomnia and Postman, validating request/response, error handling and system integrations, using basic SQL scripts for data queries and validation.</li>
-        <li>Participated actively in Scrum ceremonies — refinements, plannings, reviews and retrospectives — contributing with acceptance criteria and risk assessment before sprints.</li>
-        <li>Collaborated with dev and product teams using Figma, Miro and Chrome DevTools for technical inspection and UX improvement evidence.</li>
+        <li data-i18n="exp1.b1">Authored detailed test plans and cases from requirements and user stories, ensuring full coverage of functional and non-functional scenarios for web and mobile applications.</li>
+        <li data-i18n="exp1.b2">Executed functional, regression and exploratory manual tests, documenting bugs in JIRA and Azure DevOps with reproduction steps, evidence and follow-up until resolution.</li>
+        <li data-i18n="exp1.b3">Automated E2E and API tests with Cypress, JavaScript and Cucumber, applying BDD with Gherkin and integrating execution into CI/CD pipelines on Azure DevOps.</li>
+        <li data-i18n="exp1.b4">Tested APIs with Insomnia and Postman, validating request/response, error handling and system integrations, using SQL for data queries and validation.</li>
+        <li data-i18n="exp1.b5">Participated actively in Scrum ceremonies — refinements, plannings, reviews and retrospectives — contributing with acceptance criteria and risk assessment before sprints.</li>
+        <li data-i18n="exp1.b6">Collaborated with dev teams using Chrome DevTools for technical inspection and UX improvement evidence.</li>
       </ul>
     </div>
 
     <div class="exp-card fade-up">
       <div class="exp-meta">Jan 2024 – Dec 2024 &nbsp;·&nbsp; Santos, SP – Hybrid</div>
-      <div class="exp-role">QA Software Intern</div>
+      <div class="exp-role" data-i18n="exp2.role">QA Software Intern</div>
       <div class="exp-company">Mosten</div>
       <ul class="exp-bullets">
-        <li>Executed exploratory and manual tests on web and mobile applications (Android and iOS), ensuring functional coverage and identification of UI/UX inconsistencies during the SDLC.</li>
-        <li>Authored test documentation and test suites, documenting results and collaborating on expanding regression coverage with Cypress, JavaScript and Git/GitHub.</li>
-        <li>Supported the shift-left approach by participating in requirements and acceptance criteria reviews with business analysts and tech leads before development started.</li>
-        <li>Optimized manual test flows and improved communication with proactive bug reporting, contributing to more predictable sprints and a lower defect rate.</li>
+        <li data-i18n="exp2.b1">Executed exploratory and manual tests on web and mobile applications (Android and iOS), ensuring functional coverage and identification of UI/UX inconsistencies during the SDLC.</li>
+        <li data-i18n="exp2.b2">Authored test matrices and test books, documenting results and collaborating on expanding regression suites with Cypress, Selenium and Git/GitHub.</li>
+        <li data-i18n="exp2.b3">Supported the shift-left approach by participating in requirements and acceptance criteria reviews with business analysts and tech leads before development started.</li>
+        <li data-i18n="exp2.b4">Optimized manual test flows and improved communication with proactive bug reporting, contributing to more predictable sprints and a lower defect rate.</li>
       </ul>
     </div>
   </section>
 
   <!-- PROJECTS -->
   <section id="projects">
-    <div class="section-label">Projects</div>
-    <h2 class="section-title">My work</h2>
+    <div class="section-label" data-i18n="proj.label">Projects</div>
+    <h2 class="section-title" data-i18n="proj.title">My work</h2>
     <div class="projects-grid">
       <div class="project-card fade-up">
         <div class="project-placeholder"><span class="project-placeholder-icon">🧪</span></div>
         <div class="project-tags"><span class="project-tag">Cypress</span><span class="project-tag">JavaScript</span></div>
-        <div class="project-title">E2E Test Suite</div>
-        <p class="project-desc">Automated end-to-end test suite covering critical user flows using Cypress.</p>
-        <p class="project-coming">Coming soon</p>
+        <div class="project-title" data-i18n="proj1.title">E2E Test Suite</div>
+        <p class="project-desc" data-i18n="proj1.desc">Automated end-to-end test suite covering critical user flows using Cypress.</p>
+        <p class="project-coming" data-i18n="proj.soon">Coming soon</p>
       </div>
       <div class="project-card fade-up" style="transition-delay:0.1s">
         <div class="project-placeholder"><span class="project-placeholder-icon">📡</span></div>
         <div class="project-tags"><span class="project-tag">Postman</span><span class="project-tag">API</span></div>
-        <div class="project-title">API Test Collection</div>
-        <p class="project-desc">Postman collection with automated assertions for a RESTful API project.</p>
-        <p class="project-coming">Coming soon</p>
+        <div class="project-title" data-i18n="proj2.title">API Test Collection</div>
+        <p class="project-desc" data-i18n="proj2.desc">Postman collection with automated assertions for a RESTful API project.</p>
+        <p class="project-coming" data-i18n="proj.soon">Coming soon</p>
       </div>
       <div class="project-card fade-up" style="transition-delay:0.2s">
         <div class="project-placeholder"><span class="project-placeholder-icon">📋</span></div>
         <div class="project-tags"><span class="project-tag">QA</span><span class="project-tag">Documentation</span></div>
-        <div class="project-title">Test Plan Template</div>
-        <p class="project-desc">Structured test plan and case documentation template for agile teams.</p>
-        <p class="project-coming">Coming soon</p>
+        <div class="project-title" data-i18n="proj3.title">Test Plan Template</div>
+        <p class="project-desc" data-i18n="proj3.desc">Structured test plan and case documentation template for agile teams.</p>
+        <p class="project-coming" data-i18n="proj.soon">Coming soon</p>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="section-label">Contact</div>
-    <h2 class="section-title">Let's connect</h2>
-    <p class="contact-sub">Open to new opportunities and collaborations.</p>
+    <div class="section-label" data-i18n="contact.label">Contact</div>
+    <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
+    <p class="contact-sub" data-i18n="contact.sub">Open to new opportunities and collaborations.</p>
     <div class="contact-links">
       <a class="contact-link" href="mailto:btf.victorsf0206@gmail.com">
         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -347,29 +384,138 @@ document.addEventListener("DOMContentLoaded", function () {
   </section>
 
   <!-- FOOTER -->
-<footer>
-  <p>© Victor Fagundes, 2026</p>
-  <p>Built with HTML & CSS · <a href="https://github.com/Vctrsf" target="_blank">github.com/Vctrsf</a></p>
-</footer>
+  <footer>
+    <p>© Victor Fagundes, 2026</p>
+    <p>Built with HTML & CSS · <a href="https://github.com/Vctrsf" target="_blank">github.com/Vctrsf</a></p>
+  </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+  <!-- Google Translate API -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'af,sq,am,ar,hy,az,eu,be,bn,bs,bg,ca,ceb,zh-CN,zh-TW,co,hr,cs,da,nl,eo,et,fi,fr,fy,gl,ka,de,el,gu,ht,ha,haw,hi,hmn,hu,is,ig,id,ga,it,ja,jw,kn,kk,km,ko,ku,ky,lo,la,lv,lt,lb,mk,mg,ms,ml,mt,mi,mr,mn,my,ne,no,ny,or,ps,fa,pl,pt,pa,ro,ru,sm,gd,sr,st,sn,sd,si,sk,sl,so,es,su,sw,sv,tl,tg,ta,tt,te,th,tr,tk,uk,ur,ug,uz,vi,cy,xh,yi,yo,zu',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
 
-  const elements = document.querySelectorAll(".fade-up");
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
+    function toggleGT() {
+      var el = document.getElementById('google_translate_element');
+      var select = el.querySelector('select.goog-te-combo');
+      if (select) {
+        select.style.display = select.style.display === 'none' ? 'block' : 'none';
+        select.style.position = 'fixed';
+        select.style.top = '70px';
+        select.style.right = '20px';
+        select.style.zIndex = '9999';
+        select.style.padding = '8px 12px';
+        select.style.borderRadius = '8px';
+        select.style.border = '1.5px solid #7A9E6E';
+        select.style.background = '#F2F5F0';
+        select.style.color = '#2C3D28';
+        select.style.fontSize = '0.85rem';
+        select.style.boxShadow = '0 4px 16px rgba(0,0,0,0.12)';
       }
-    });
-  }, { threshold: 0.15 });
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  elements.forEach(function(el) {
-    observer.observe(el);
-  });
+  <!-- i18n EN / PT -->
+  <script>
+    var translations = {
+      en: {
+        'nav.about': 'About', 'nav.experience': 'Experience', 'nav.projects': 'Projects',
+        'nav.contact': 'Contact', 'nav.cta': 'Get in touch ↗',
+        'hero.title': 'QA Analyst',
+        'hero.desc': 'Quality Assurance professional with 2+ years of experience ensuring software reliability through structured testing, automation and process improvement.',
+        'hero.cta': 'See my work',
+        'carousel.label': 'Companies I helped',
+        'about.label': 'About me', 'about.title1': 'Quality is', 'about.title2': 'the feature.',
+        'about.p1': "I'm a QA Analyst with 2+ years of experience in the software development lifecycle, working with manual testing, test automation and API validation across web and mobile applications.",
+        'about.p2': 'At Mosten, I progressed from intern to analyst, building E2E and API test suites with Cypress and Cucumber, integrating them into CI/CD pipelines, and collaborating closely with dev teams in Scrum environments.',
+        'skills.testing': 'Testing', 'skills.manual': 'Manual Testing', 'skills.api': 'API Testing',
+        'skills.automation': 'Test Automation', 'skills.tools': 'Tools',
+        'exp.label': 'Experience', 'exp.title': "Where I've worked",
+        'exp1.role': 'QA Analyst Jr',
+        'exp1.b1': 'Authored detailed test plans and cases from requirements and user stories, ensuring full coverage of functional and non-functional scenarios for web and mobile applications.',
+        'exp1.b2': 'Executed functional, regression and exploratory manual tests, documenting bugs in JIRA and Azure DevOps with reproduction steps, evidence and follow-up until resolution.',
+        'exp1.b3': 'Automated E2E and API tests with Cypress, JavaScript and Cucumber, applying BDD with Gherkin and integrating execution into CI/CD pipelines on Azure DevOps.',
+        'exp1.b4': 'Tested APIs with Insomnia and Postman, validating request/response, error handling and system integrations, using SQL for data queries and validation.',
+        'exp1.b5': 'Participated actively in Scrum ceremonies — refinements, plannings, reviews and retrospectives — contributing with acceptance criteria and risk assessment before sprints.',
+        'exp1.b6': 'Collaborated with dev teams using Chrome DevTools for technical inspection and UX improvement evidence.',
+        'exp2.role': 'QA Software Intern',
+        'exp2.b1': 'Executed exploratory and manual tests on web and mobile applications (Android and iOS), ensuring functional coverage and identification of UI/UX inconsistencies during the SDLC.',
+        'exp2.b2': 'Authored test matrices and test books, documenting results and collaborating on expanding regression suites with Cypress, Selenium and Git/GitHub.',
+        'exp2.b3': 'Supported the shift-left approach by participating in requirements and acceptance criteria reviews with business analysts and tech leads before development started.',
+        'exp2.b4': 'Optimized manual test flows and improved communication with proactive bug reporting, contributing to more predictable sprints and a lower defect rate.',
+        'proj.label': 'Projects', 'proj.title': 'My work', 'proj.soon': 'Coming soon',
+        'proj1.title': 'E2E Test Suite', 'proj1.desc': 'Automated end-to-end test suite covering critical user flows using Cypress.',
+        'proj2.title': 'API Test Collection', 'proj2.desc': 'Postman collection with automated assertions for a RESTful API project.',
+        'proj3.title': 'Test Plan Template', 'proj3.desc': 'Structured test plan and case documentation template for agile teams.',
+        'contact.label': 'Contact', 'contact.title': "Let's connect", 'contact.sub': 'Open to new opportunities and collaborations.'
+      },
+      pt: {
+        'nav.about': 'Sobre', 'nav.experience': 'Experiência', 'nav.projects': 'Projetos',
+        'nav.contact': 'Contato', 'nav.cta': 'Entre em contato ↗',
+        'hero.title': 'Analista de QA',
+        'hero.desc': 'Profissional de Garantia de Qualidade com mais de 2 anos de experiência garantindo a confiabilidade de software por meio de testes estruturados, automação e melhoria de processos.',
+        'hero.cta': 'Ver meu trabalho',
+        'carousel.label': 'Empresas que ajudei',
+        'about.label': 'Sobre mim', 'about.title1': 'Qualidade é', 'about.title2': 'o diferencial.',
+        'about.p1': 'Sou um Analista de QA com mais de 2 anos de experiência no ciclo de vida de desenvolvimento de software, atuando em testes manuais, automação e validação de APIs em aplicações web e mobile.',
+        'about.p2': 'Na Mosten, evoluí de estagiário a analista, construindo suítes de testes E2E e de API com Cypress e Cucumber, integrando execuções em pipelines CI/CD e colaborando com equipes de desenvolvimento em ambientes Scrum.',
+        'skills.testing': 'Testes', 'skills.manual': 'Testes Manuais', 'skills.api': 'Testes de API',
+        'skills.automation': 'Automação de Testes', 'skills.tools': 'Ferramentas',
+        'exp.label': 'Experiência', 'exp.title': 'Onde trabalhei',
+        'exp1.role': 'Analista de QA Jr',
+        'exp1.b1': 'Elaboração de planos e casos de teste detalhados a partir de requisitos e histórias de usuário, garantindo cobertura completa de cenários funcionais e não funcionais para aplicações web e mobile.',
+        'exp1.b2': 'Execução de testes manuais funcionais, regressivos e exploratórios, com documentação de bugs no JIRA e Azure DevOps com passos de reprodução, evidências e acompanhamento até a resolução.',
+        'exp1.b3': 'Automação de testes E2E e de API com Cypress, JavaScript e Cucumber, aplicando BDD com Gherkin e integrando execução em pipelines CI/CD no Azure DevOps.',
+        'exp1.b4': 'Testes de API com Insomnia e Postman, validando request/response, tratamento de erros e integrações entre sistemas, com uso de SQL para consulta e validação de dados.',
+        'exp1.b5': 'Participação ativa nas cerimônias ágeis Scrum — refinamentos, plannings, reviews e retrospectivas — contribuindo com critérios de aceite e levantamento de riscos antes das sprints.',
+        'exp1.b6': 'Colaboração com times de desenvolvimento utilizando Chrome DevTools para inspeção técnica e geração de evidências de melhorias de UX.',
+        'exp2.role': 'Estagiário de QA de Software',
+        'exp2.b1': 'Execução de testes exploratórios e manuais em aplicações web e mobile (Android e iOS), garantindo cobertura funcional e identificação de inconsistências de UI/UX durante o SDLC.',
+        'exp2.b2': 'Elaboração de matrizes e cadernos de teste, documentando resultados e colaborando na expansão de suítes de regressão com Cypress, Selenium e Git/GitHub.',
+        'exp2.b3': 'Apoio à abordagem shift-left participando de revisões de requisitos e critérios de aceite junto a analistas de negócio e líderes técnicos antes do início do desenvolvimento.',
+        'exp2.b4': 'Otimização de fluxos de teste manual e melhoria da comunicação, com reporting proativo de problemas, contribuindo para sprints mais previsíveis e menor índice de defeitos.',
+        'proj.label': 'Projetos', 'proj.title': 'Meu trabalho', 'proj.soon': 'Em breve',
+        'proj1.title': 'Suíte E2E de Testes', 'proj1.desc': 'Suíte de testes end-to-end automatizados cobrindo fluxos críticos de usuário com Cypress.',
+        'proj2.title': 'Coleção de Testes de API', 'proj2.desc': 'Coleção Postman com asserções automatizadas para um projeto de API RESTful.',
+        'proj3.title': 'Template de Plano de Testes', 'proj3.desc': 'Template estruturado de plano e casos de teste para equipes ágeis.',
+        'contact.label': 'Contato', 'contact.title': 'Vamos nos conectar', 'contact.sub': 'Aberto a novas oportunidades e colaborações.'
+      }
+    };
 
-});
-</script>
+    var currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      // Atualiza botões
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+      });
+
+      // Aplica traduções
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    // Fade-up observer
+    setTimeout(function() {
+      document.querySelectorAll('.fade-up').forEach(function(el) { el.classList.add('visible'); });
+    }, 200);
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.01 });
+    document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+  </script>
 </body>
 </html>
